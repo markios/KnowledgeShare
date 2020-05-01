@@ -1,0 +1,21 @@
+service: users-api
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+functions:
+  getUsers:
+    handler: ./src/server/handlers/users.getUsers
+    events:
+      - http:
+          path: api/users
+          method: get
+          cors: true
+          request:
+            parameters:
+              querystrings:
+                results: true

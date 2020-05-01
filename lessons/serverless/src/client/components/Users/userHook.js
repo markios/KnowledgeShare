@@ -48,7 +48,7 @@ export default () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await window.fetch("/api/user?results=20");
+        const response = await window.fetch("http://localhost:3000/dev/api/users?results=5");
         const users = await response.json();
         users.results = users.results.map(user => ({
           ...user,
