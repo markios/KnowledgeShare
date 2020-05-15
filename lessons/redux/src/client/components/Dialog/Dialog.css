@@ -1,0 +1,32 @@
+.dialog {
+  min-width: 600px;
+  min-height: 200px;
+  border: none;
+  top: 25%;
+}
+
+.dialog__content {
+  margin-bottom: 60px;
+}
+
+.dialog__menu {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: right;
+  width: 100%;
+  left: 0;
+  padding: 0 10px;
+  margin: 10px 0;
+}
+
+.dialog menu > * {
+  margin-left: auto;
+}
+
+.dialog__menu__button {
+  border: none;
+  background-color: var(--hover-color);
+  padding: 10px 5px;
+  min-width: 100px;
+}
