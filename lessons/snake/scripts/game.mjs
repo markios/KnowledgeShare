@@ -1,5 +1,6 @@
 import Snake from "./snake.mjs";
 import Food from "./food.mjs";
+import Score from "./score.mjs";
 
 
 export default class Game {
@@ -13,6 +14,7 @@ export default class Game {
     }
     this.x = 0;
     this.init();
+    this.score = new Score();
     this.newGame();
   }
 
@@ -32,6 +34,7 @@ export default class Game {
     if (snake.x === food.x && snake.y === food.y) {
       this.snake.grow(food);
       this.setFood();
+      this.score.increment();
     }
   }
 
@@ -44,6 +47,7 @@ export default class Game {
   newGame() {
     this.snake = new Snake(this.state.width, this.state.height, this.ctx);
     this.setFood();
+    this.score.reset();
   }
 
   setFood() {

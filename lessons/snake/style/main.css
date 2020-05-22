@@ -9,6 +9,7 @@ html, body {
   --main-color: #ddd;
   --secondary-color: #fff;
   --highlight-color: #70bf35;
+  --dark-color: #313131;
   --main-font: 'Patrick Hand', cursive;
 }
 
@@ -29,6 +30,28 @@ html, body {
   justify-content: center;
   flex-direction: column;
   background-color: var(--main-color);
+}
+
+.container__game {
+  position: relative;
+  padding-top: 30px;
+}
+
+.container__game__score {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 20px;
+  color: var(--highlight-color);
+}
+
+.container__game__score::before {
+  content: 'Score: ';
+  position: absolute;
+  left: -50px;
+  top: 0;
+  display: block;
+  color: var(--dark-color);
 }
 
 canvas {
