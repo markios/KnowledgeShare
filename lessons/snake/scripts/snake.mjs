@@ -36,7 +36,7 @@ const INVERSE_DIRECTIONS = {
 }
 
 const resetPosition = (max) => (pos) => {
-  if (pos <= 0) {
+  if (pos <= (0 - 10)) {
     return max;
   } else if (pos >= max) {
     return 0;
