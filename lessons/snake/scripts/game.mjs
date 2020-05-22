@@ -19,7 +19,7 @@ export default class Game {
   init() {
     this.canvas = document.querySelector('canvas');
     this.ctx = this.canvas.getContext('2d');
-    setInterval(() => this.render(), 1000 / 60);
+    setInterval(() => this.render(), 1000 / 100);
   }
 
   clearCanvas() {
