@@ -1,7 +1,7 @@
 const data = require('../data/users.json')
 
 module.exports = {
-  getUsers: async (event, context, callback) => {
+  getUsers: async (event) => {
     const results = event.queryStringParameters.results || 20;
     const result = {
       info: { results },
@@ -12,7 +12,5 @@ module.exports = {
       statusCode: 200,
       body: JSON.stringify(result),
     };
-  
-    // callback(null, response);
   }
 } 
