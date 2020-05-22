@@ -5,7 +5,7 @@ const DIRECTION = {
   RIGHT: 'RIGHT'
 };
 
-const SPEED = 2;
+const SPEED = 10;
 
 const INC = {
   [DIRECTION.UP]: -(SPEED),
@@ -28,6 +28,13 @@ const DIRECTION_MAP = {
   [KEYS.RIGHT]: DIRECTION.RIGHT
 }
 
+const INVERSE_DIRECTIONS = {
+  [DIRECTION.UP]: DIRECTION.DOWN,
+  [DIRECTION.DOWN]: DIRECTION.UP,
+  [DIRECTION.LEFT]: DIRECTION.RIGHT,
+  [DIRECTION.RIGHT]: DIRECTION.LEFT
+}
+
 const resetPosition = (max) => (pos) => {
   if (pos <= 0) {
     return max;
@@ -44,6 +51,7 @@ export default class Snake {
       canvasWidth,
       canvasHeight,
       color: '#70bf35',
+      stroke: '#467721',
       width: 10,
       height: 10,
       body: [],
@@ -66,15 +74,23 @@ export default class Snake {
   }
   
   get width() {
-    return this.state.width
+    return this.state.width;
   }
 
   get height() {
-    return this.state.height
+    return this.state.height;
   }
 
   get body() {
     return this.state.body;
+  }
+
+  get head() {
+    return this.state.body[0];
+  }
+
+  grow(next) {
+    this.next = next;
   }
 
   addBody(x, y) {
@@ -88,27 +104,50 @@ export default class Snake {
   }
 
   onChangeDirection(e) {
+    const newDirection = DIRECTION_MAP[e.keyCode];
+    const inverse = INVERSE_DIRECTIONS[this.state.direction]
+
+    if (newDirection === inverse) return;
     this.state.direction = DIRECTION_MAP[e.keyCode];
   }
 
   move() {
-    const { direction } = this.state;
-    this.state.body = this.state.body.map(({ x, y, ...args }) => {
+    const { direction, body } = this.state;
+    
+    for (let i = body.length - 1, j = 0; i >= j; i-=1 ) {
+      if (i > 0) {
+        const prev = this.state.body[i - 1];
+        this.state.body[i].x = prev.x;
+        this.state.body[i].y = prev.y;
+        continue;
+      }
+      
       const isY = direction === DIRECTION.UP || direction === DIRECTION.DOWN;
       const isX = direction === DIRECTION.LEFT || direction === DIRECTION.RIGHT;
-      return {
+      const { x, y, ...args } = this.state.body[i];
+      this.state.body[i] = {
         ...args,
         x: isX ? this.resetX(x + INC[direction]) : x,
         y: isY ? this.resetY(y + INC[direction]) : y,
       };
-    })
+    }
+  }
+
+  postRender() {
+    this.move();
+    if (this.next) {
+      this.addBody(this.next.x, this.next.y);
+      this.next = null;
+    }
   }
 
   render() {
-    this.ctx.fillStyle = this.state.color;
     this.state.body.forEach((b) => {
+      this.ctx.fillStyle = this.state.color;
       this.ctx.fillRect(b.x, b.y, b.width, b.height);
+      this.ctx.strokeStyle = this.state.stroke;
+      this.ctx.strokeRect(b.x, b.y, b.width, b.height);
     })
-    this.move();
+    this.postRender();
   }
 }

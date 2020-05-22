@@ -19,7 +19,20 @@ export default class Game {
   init() {
     this.canvas = document.querySelector('canvas');
     this.ctx = this.canvas.getContext('2d');
-    setInterval(() => this.render(), 1000 / 100);
+    setInterval(() => {
+      this.render();
+      this.detectCollisions();
+    }, 100);
+  }
+  
+  detectCollisions() {
+    const snake = this.snake.head;
+    const food = this.food.position;
+
+    if (snake.x === food.x && snake.y === food.y) {
+      this.snake.grow(food);
+      this.setFood();
+    }
   }
 
   clearCanvas() {

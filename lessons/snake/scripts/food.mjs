@@ -29,7 +29,7 @@ export default class Food {
     this.ctx = ctx;
   }
 
-  getPosition() {
+  get position() {
     return {
       x: this.state.x,
       y: this.state.y
