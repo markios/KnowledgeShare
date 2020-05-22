@@ -5,7 +5,7 @@ const DIRECTION = {
   RIGHT: 'RIGHT'
 };
 
-const SPEED = 3
+const SPEED = 2;
 
 const INC = {
   [DIRECTION.UP]: -(SPEED),
@@ -59,6 +59,22 @@ export default class Snake {
 
   addEvents() {
     document.body.addEventListener('keydown', this.onChangeDirection.bind(this), { passive: true })
+  }
+
+  getPosition() {
+    return this.state.body;
+  }
+  
+  get width() {
+    return this.state.width
+  }
+
+  get height() {
+    return this.state.height
+  }
+
+  get body() {
+    return this.state.body;
   }
 
   addBody(x, y) {

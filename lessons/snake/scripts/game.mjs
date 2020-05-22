@@ -1,4 +1,6 @@
 import Snake from "./snake.mjs";
+import Food from "./food.mjs";
+
 
 export default class Game {
   constructor() {
@@ -28,10 +30,16 @@ export default class Game {
 
   newGame() {
     this.snake = new Snake(this.state.width, this.state.height, this.ctx);
+    this.setFood();
+  }
+
+  setFood() {
+    this.food = new Food(this.state.width, this.state.height, this.ctx, this.snake);
   }
 
   render() {
     this.clearCanvas();
-    this.snake.render()
+    this.snake.render();
+    this.food.render();
   }
 }
