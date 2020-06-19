@@ -1,0 +1,24 @@
+PPR-193:
+  ✔ Edit the reducer mapping to include new PricingGroups - packages/ff-pricing-web/src/containers/helpers/dataTransformers.js @done (6/12/2020, 9:32:37 AM)
+  ✔ Mocking of data for use in dev (smoke test) @done (6/12/2020, 9:32:37 AM)
+  ✔ Create acceptance tests for pipeline @done (6/12/2020, 9:32:37 AM)
+  ✔ Edit the PriceChangeFormValidator.validatePricingGroupPricesForProduct method to handle the new associated groups @done (6/12/2020, 9:32:38 AM)
+
+  const target = {}
+
+  const sibling  = products.find(p => pi.regionId === target.regionId);
+  const convenience = CONVENIENCES.indexOf(target.pricingGroupId) >= 0 ? target : sibling;
+  const supermarket = convenience === target ? sibling : target;
+
+  return convenience.price >= supermarket
+
+
+  ✔ Chris @done (6/12/2020, 10:40:12 AM)
+  ✔ Harinder @done (6/12/2020, 10:40:58 AM)
+  ✔ Joy @done (6/12/2020, 10:40:13 AM)
+  ☐ Binu
+  ☐ Tomasz
+  ☐ Luke
+  ✔ Arun @done (6/12/2020, 10:41:09 AM)
+  ✔ Priyanka @done (6/12/2020, 10:41:11 AM)
+  ✔ Ankit @done (6/12/2020, 10:40:45 AM)
