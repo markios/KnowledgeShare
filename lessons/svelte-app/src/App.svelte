@@ -1,5 +1,6 @@
 <script>
 	import Users from './components/Users.svelte';
+	let name = 'mark';
 </script>
 
 <main>
@@ -14,9 +15,7 @@
 </main>
 
 <style>
-  .App {}
-
-	.App-header {
+  .App-header {
 		font-family: Helvetica Neue;
 		background-color: #282c34;
 		min-height: 100px;

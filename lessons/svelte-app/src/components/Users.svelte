@@ -1,6 +1,7 @@
 <script>
   import { onMount, onDestroy } from 'svelte';
   import { getUsers, users } from '../store/UserStore.js';
+  import Dialog from './Dialog.svelte';
   
   let fetchingUsers;
   
@@ -8,7 +9,22 @@
     fetchingUsers = getUsers();
   });
 
+  let showModal = false;
+  let selectedUser = null;
   $: count = $users.results.length;
+
+  const onUserClick = (event) => {
+    const target = Number(event.target.dataset.target);
+    selectedUser = $users.results.find(user => user.id === target);
+    showModal = true;
+  }
+
+  const onDialogClose = () => {
+    showModal = false;
+    selectedUser = null;
+  }
+
+  let newuser = '';
 
 </script>
 
@@ -19,9 +35,17 @@
     <p>Total: {count}</p>
     {#each $users.results as user}
       <div key={user.id} class="users__user">
-        <a class="users__user__a" data-target={user.id} href='#'>{user.name.title} {user.name.first} {user.name.last}</a>
+        <a class="users__user__a" on:click={onUserClick} data-target={user.id} href='#'>{user.name.title} {user.name.first} {user.name.last}</a>
       </div>
     {/each}
+    {#if showModal}
+       <Dialog onClose={onDialogClose}>
+         <h3>{selectedUser.name.title} {selectedUser.name.first} {selectedUser.name.last}</h3>
+         <p><strong>Age: </strong> {selectedUser.dob.age}</p>
+         <p><strong>City: </strong>{selectedUser.location.city}</p>
+         <p><strong>Country: </strong>{selectedUser.location.country}</p>
+       </Dialog>
+    {/if}
   {:catch error}
     <p class="users__failed">{error}</p>
   {/await}
